@@ -12,7 +12,7 @@ using namespace std;
 
 using namespace CryptoPP;
 
-string des_encode(string & plain,byte key[], byte iv[])
+string des_encode(string & plain, byte key[], byte iv[])
 {
 	string cipher;
 	try
@@ -59,13 +59,13 @@ int main(int argc, char * argv[])
 	//print key
 	string encoded;
 	encoded.clear();
-	StringSource(key, sizeof(key), true, new HexEncoder( new StringSink(encoded))); 
+	StringSource(key, sizeof(key), true, new HexEncoder(new StringSink(encoded))); 
 	
 	cout << "key: " << encoded << endl;
 	
 	//encrypt
 	
-	string cipher=des_encode(plain,key);
+	string cipher = des_encode(plain, key, iv);
 	file2<<cipher;
 	
 	cout<<"cipher text stored in:"<<argv[2]<<endl;
