@@ -17,7 +17,7 @@ string des_decode(string & cipher,byte key[])
 	//decryption
 	try
 	{
-		ECB_Mode< DES >::Decryption dec;
+		CBC_Mode< DES >::Decryption dec;
 		dec.SetKey(key, DES::DEFAULT_KEYLENGTH);
 		StringSource s(cipher, true, new StreamTransformationFilter(dec, new StringSink(plain)));  
 		cout << "recovered text: " << plain<< endl;

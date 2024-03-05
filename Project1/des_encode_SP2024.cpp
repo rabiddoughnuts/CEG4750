@@ -18,7 +18,7 @@ string des_encode(string & plain,byte key[])
 	try
 	{
 		//cout << "plain text: " << plain << endl;
-		ECB_Mode<DES>::Encryption enc;
+		CBC_Mode<DES>::Encryption enc;
 		enc.SetKey(key, DES::DEFAULT_KEYLENGTH);
 		StringSource(plain, true, new StreamTransformationFilter(enc, new StringSink(cipher)));//add padding by StreamTransformationFilter 
 	}
