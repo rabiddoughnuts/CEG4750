@@ -19,7 +19,7 @@ string des_encode(string & plain, byte key[], byte iv[])
 	{
 		//cout << "plain text: " << plain << endl;
 		CBC_Mode<DES>::Encryption enc;
-		enc.SetKeyWithIV(key, DES::, iv);
+		enc.SetKeyWithIV(key, DES::DEFAULT_KEYLENGTH, iv);
 		StringSource(plain, true, new StreamTransformationFilter(enc, new StringSink(cipher)));//add padding by StreamTransformationFilter 
 	}
 	catch(const CryptoPP::Exception& e)
