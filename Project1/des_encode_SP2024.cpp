@@ -12,14 +12,14 @@ using namespace std;
 
 using namespace CryptoPP;
 
-string des_encode(string & plain,byte key[])
+string des_encode(string & plain,byte key[], byte iv[])
 {
 	string cipher;
 	try
 	{
 		//cout << "plain text: " << plain << endl;
 		CBC_Mode<DES>::Encryption enc;
-		enc.SetKey(key, DES::DEFAULT_KEYLENGTH);
+		enc.SetKeyWithIV(key, DES::, iv);
 		StringSource(plain, true, new StreamTransformationFilter(enc, new StringSink(cipher)));//add padding by StreamTransformationFilter 
 	}
 	catch(const CryptoPP::Exception& e)
@@ -35,6 +35,7 @@ int main(int argc, char * argv[])
 	ifstream file1;
 	ofstream file2;
 	byte key[DES::DEFAULT_KEYLENGTH]={'1','2','3','4','a','b','c','d'}; //key is hardcoded
+	byte iv[DES::BLOCKSIZE]={'a','b','c','d','1','2','3','4'}; //iv is hardcoded
 	
 	if(argc!=3)
 	{
