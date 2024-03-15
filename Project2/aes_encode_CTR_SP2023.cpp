@@ -20,7 +20,7 @@ string aes_encode(string & plain, byte key[], byte iv[])
 	string cipher;
 	try{
 		CTR_Mode<AES>::Encryption enc;
-		enc.SetKey(key, AES::DEFAULT_KEYLENGTH, iv);
+		enc.SetKeyWithIV(key, AES::DEFAULT_KEYLENGTH, iv);
 		StringSource(plain, true, new StreamTransformationFilter(enc, new StringSink(cipher)));//add padding by StreamTransformationFilter 
 	}
 	catch(const CryptoPP::Exception & e)

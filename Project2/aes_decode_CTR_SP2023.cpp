@@ -19,7 +19,7 @@ string aes_decode(string & cipher, byte key[], byte iv[])
 	string plain;
 	try{
 		CTR_Mode< AES >::Decryption dec;
-		dec.SetKey(key, AES::DEFAULT_KEYLENGTH);
+		dec.SetKeyWithIV(key, AES::DEFAULT_KEYLENGTH, iv);
 		StringSource s(cipher, true, new StreamTransformationFilter(dec, new StringSink(plain)));  
 	}
 	catch(const CryptoPP::Exception& e){
