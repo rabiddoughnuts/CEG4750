@@ -14,11 +14,11 @@ using namespace std;
 #include"cryptopp/modes.h"
 
 using namespace CryptoPP;
-string aes_decode(string & cipher,byte key[])
+string aes_decode(string & cipher, byte key[], byte iv[])
 {
 	string plain;
 	try{
-		ECB_Mode< AES >::Decryption dec;
+		CTR_Mode< AES >::Decryption dec;
 		dec.SetKey(key, AES::DEFAULT_KEYLENGTH);
 		StringSource s(cipher, true, new StreamTransformationFilter(dec, new StringSink(plain)));  
 	}
@@ -31,6 +31,7 @@ int main(int argc,char * argv[])
 	fstream file1;
 	fstream file2;
 	byte key[AES::DEFAULT_KEYLENGTH];
+	byte iv[AES::BLOCKSIZE];
 
 	if(argc!=4)
 	{
@@ -62,7 +63,7 @@ int main(int argc,char * argv[])
 	StringSource(key, sizeof(key), true, new HexEncoder( new StringSink(encoded))); 
 	cout << "key: " << encoded<< endl;
 	//decode
-	string plain=aes_decode(cipher,key);
+	string plain = aes_decode(cipher, key, iv);
 	cout << "recovered text: " << plain<< endl;
 	file2<<plain;
 	cout<<"plain text stored in:"<<argv[2]<<endl;

@@ -15,12 +15,12 @@ using namespace std;
 
 using namespace CryptoPP;
 
-string aes_encode(string & plain,byte key[])
+string aes_encode(string & plain, byte key[], byte iv[])
 {
 	string cipher;
 	try{
-		ECB_Mode<AES>::Encryption enc;
-		enc.SetKey(key, AES::DEFAULT_KEYLENGTH);
+		CTR_Mode<AES>::Encryption enc;
+		enc.SetKey(key, AES::DEFAULT_KEYLENGTH, iv);
 		StringSource(plain, true, new StreamTransformationFilter(enc, new StringSink(cipher)));//add padding by StreamTransformationFilter 
 	}
 	catch(const CryptoPP::Exception & e)
@@ -34,6 +34,7 @@ int main(int argc, char * argv[])
 	fstream file1;
 	fstream file2;
 	byte key[AES::DEFAULT_KEYLENGTH];
+	byte iv[AES::BLOCKSIZE];
 
 	if(argc!=4)
 	{
@@ -67,7 +68,7 @@ int main(int argc, char * argv[])
 	cout << "key: " << encoded<< endl;
 	//encode
 	cout << "plain text: " << plain << endl;
-	string cipher=aes_encode(plain,key);
+	string cipher=aes_encode(plain, key, iv);
 	file2<<cipher;
 	cout<<"cipher text stored in:"<<argv[2]<<endl;
 	
