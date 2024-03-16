@@ -18,7 +18,7 @@ string aes_decode(string & cipher, byte key[], byte iv[])
 {
 	string plain;
 	try{
-		CTR_Mode< AES >::Decryption dec;
+		CTR_Mode<AES>::Decryption dec;
 		dec.SetKeyWithIV(key, AES::DEFAULT_KEYLENGTH, iv);
 		StringSource s(cipher, true, new StreamTransformationFilter(dec, new StringSink(plain)));  
 	}
@@ -31,7 +31,7 @@ int main(int argc,char * argv[])
 	fstream file1;
 	fstream file2;
 	byte key[AES::DEFAULT_KEYLENGTH];
-	byte iv[AES::BLOCKSIZE];
+	byte iv[AES::BLOCKSIZE] = {'a','b','c','d','1','2','3','4','a','b','c','d'};
 
 	if(argc!=4)
 	{
