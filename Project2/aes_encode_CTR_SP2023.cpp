@@ -1,4 +1,8 @@
-// CEG 47506750 sample code
+// CEG-4750 Information Security
+// Brandon Walker
+// Meilin Liu
+// 03/16/2024
+// Project 2
 
 #include<iostream>
 #include<fstream>
