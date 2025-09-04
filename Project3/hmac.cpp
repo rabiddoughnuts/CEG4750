@@ -1,3 +1,9 @@
+// CEG-4751 Information Security
+// Brandon Walker
+// Meilin Liu
+// 03/10/2024
+// Project 2
+
 #include "cryptopp/hmac.h"
 #include "cryptopp/sha.h"
 #include "cryptopp/files.h"
